@@ -29,7 +29,6 @@ class PurgeCommand extends BaseCommand_1.default {
             yield fetched.forEach((msg) => {
                 msg.delete().catch((error) => message.reply(`Error: ${error}`));
             });
-            yield message.channel.send("Deleted");
         });
     }
 }

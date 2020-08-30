@@ -20,6 +20,5 @@ export default class PurgeCommand extends BaseCommand {
     await fetched.forEach((msg) => {
       msg.delete().catch((error) => message.reply(`Error: ${error}`));
     });
-    await message.channel.send("Deleted");
   }
 }
