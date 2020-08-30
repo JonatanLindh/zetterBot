@@ -17,6 +17,19 @@ dotenv_1.config();
 const registry_1 = require("./utils/registry");
 const client_1 = __importDefault(require("./client/client"));
 const client = new client_1.default({});
+const express = require("express");
+const http = require("http");
+const app = express();
+if (process.env.PROJECT_DOMAIN) {
+    app.get("/", (request, response) => {
+        console.log(Date.now() + " Ping Received");
+        response.sendStatus(200);
+    });
+    app.listen(process.env.PORT);
+    setInterval(() => {
+        http.get(`http://${process.env.PROJECT_DOMAIN}.glitch.me/`);
+    }, 280000);
+}
 (() => __awaiter(void 0, void 0, void 0, function* () {
     client.prefix = process.env.DISCORD_BOT_PREFIX || client.prefix;
     yield registry_1.registerCommands(client, "../commands");

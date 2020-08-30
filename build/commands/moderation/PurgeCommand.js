@@ -13,19 +13,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const BaseCommand_1 = __importDefault(require("../../utils/structures/BaseCommand"));
-const express = require("express");
-const http = require("http");
-const app = express();
-if (process.env.PROJECT_DOMAIN) {
-    app.get("/", (request, response) => {
-        console.log(Date.now() + " Ping Received");
-        response.sendStatus(200);
-    });
-    app.listen(process.env.PORT);
-    setInterval(() => {
-        http.get(`http://${process.env.PROJECT_DOMAIN}.glitch.me/`);
-    }, 280000);
-}
 class PurgeCommand extends BaseCommand_1.default {
     constructor() {
         super("purge", "moderation", []);
