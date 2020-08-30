@@ -8,7 +8,6 @@ export default class PurgeCommand extends BaseCommand {
   }
 
   async run(client: DiscordClient, message: Message, args: Array<string>) {
-    await message.delete();
     const deleteCount = parseInt(args[0], 10);
 
     if (!deleteCount || deleteCount < 0 || deleteCount > 100) {
@@ -16,7 +15,7 @@ export default class PurgeCommand extends BaseCommand {
     }
 
     const fetched = await message.channel.messages.fetch({
-      limit: deleteCount,
+      limit: deleteCount + 1,
     });
     await fetched.forEach((msg) => {
       msg
