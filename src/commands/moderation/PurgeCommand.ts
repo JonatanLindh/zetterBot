@@ -18,11 +18,7 @@ export default class PurgeCommand extends BaseCommand {
       limit: deleteCount + 1,
     });
     await fetched.forEach((msg) => {
-      msg
-        .delete()
-        .catch((error) =>
-          message.reply(`Couldn't delete message because: ${error}`)
-        );
+      msg.delete().catch((error) => message.reply(`Error: ${error}`));
     });
   }
 }

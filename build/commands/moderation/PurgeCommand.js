@@ -27,9 +27,7 @@ class PurgeCommand extends BaseCommand_1.default {
                 limit: deleteCount + 1,
             });
             yield fetched.forEach((msg) => {
-                msg
-                    .delete()
-                    .catch((error) => message.reply(`Couldn't delete message because: ${error}`));
+                msg.delete().catch((error) => message.reply(`Error: ${error}`));
             });
         });
     }
