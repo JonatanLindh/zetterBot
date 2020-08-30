@@ -19,13 +19,12 @@ class PurgeCommand extends BaseCommand_1.default {
     }
     run(client, message, args) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield message.delete();
             const deleteCount = parseInt(args[0], 10);
             if (!deleteCount || deleteCount < 0 || deleteCount > 100) {
                 message.reply("syntax: purge (2 < int < 100)");
             }
             const fetched = yield message.channel.messages.fetch({
-                limit: deleteCount,
+                limit: deleteCount + 1,
             });
             yield fetched.forEach((msg) => {
                 msg
