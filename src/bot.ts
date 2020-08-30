@@ -7,17 +7,11 @@ import express = require("express");
 import http = require("http");
 const app = express();
 
-if (process.env.PROJECT_DOMAIN) {
-  console.log("Running express keep alive");
-  app.get("/", (request, response) => {
-    console.log(Date.now() + " Ping Received");
-    response.sendStatus(200);
-  });
-  app.listen(process.env.PORT);
-  setInterval(() => {
-    http.get(`http://${process.env.PROJECT_DOMAIN}.glitch.me/`);
-  }, 280000);
-}
+console.log("Running express keep alive");
+app.get("/", (request, response) => {
+  console.log(Date.now() + " Ping Received");
+  response.sendStatus(200);
+});
 
 (async () => {
   client.prefix = process.env.DISCORD_BOT_PREFIX || client.prefix;
