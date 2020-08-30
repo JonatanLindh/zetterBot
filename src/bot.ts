@@ -8,6 +8,7 @@ import http = require("http");
 const app = express();
 
 if (process.env.PROJECT_DOMAIN) {
+  console.log("Running express keep alive");
   app.get("/", (request, response) => {
     console.log(Date.now() + " Ping Received");
     response.sendStatus(200);
