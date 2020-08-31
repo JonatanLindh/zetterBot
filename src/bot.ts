@@ -9,6 +9,8 @@ import { keepAlive } from "./server";
   client.prefix = process.env.DISCORD_BOT_PREFIX || client.prefix;
   await registerCommands(client, "../commands");
   await registerEvents(client, "../events");
-  keepAlive();
+  if (process.env.IN_CLOUD == "true") {
+    keepAlive().catch((err) => console.log(err));
+  }
   await client.login(process.env.DISCORD_BOT_TOKEN);
 })();

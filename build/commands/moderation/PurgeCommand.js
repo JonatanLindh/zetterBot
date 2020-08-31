@@ -19,16 +19,16 @@ class PurgeCommand extends BaseCommand_1.default {
     }
     run(client, message, args) {
         return __awaiter(this, void 0, void 0, function* () {
-            const deleteCount = parseInt(args[0], 10);
-            if (!deleteCount || deleteCount < 0 || deleteCount > 100) {
-                message.reply("syntax: purge (2 < int < 100)");
+            if (message.member.roles.cache.has("748988177682792496") === true) {
+                const deleteCount = parseInt(args[0], 10);
+                if (!deleteCount || deleteCount < 0 || deleteCount > 100) {
+                    message.reply("syntax: purge (2 < int < 100)");
+                }
+                yield message.channel.send("Deleting " + deleteCount + " messages...");
+                message.channel
+                    .bulkDelete(deleteCount + 2, true)
+                    .catch((err) => console.log(err));
             }
-            const fetched = yield message.channel.messages.fetch({
-                limit: deleteCount + 1,
-            });
-            yield fetched.forEach((msg) => {
-                msg.delete().catch((error) => message.reply(`Error: ${error}`));
-            });
         });
     }
 }

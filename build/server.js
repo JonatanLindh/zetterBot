@@ -13,7 +13,7 @@ exports.keepAlive = void 0;
 const express = require("express");
 const server = express();
 server.all("/", (req, res) => {
-    res.send("Your bot is alive!");
+    res.send("Bot is alive");
 });
 function keepAlive() {
     return __awaiter(this, void 0, void 0, function* () {

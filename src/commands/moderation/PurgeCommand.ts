@@ -1,4 +1,4 @@
-import { Message, Base } from "discord.js";
+import { Message, Base, GuildMember, TextChannel } from "discord.js";
 import BaseCommand from "../../utils/structures/BaseCommand";
 import DiscordClient from "../../client/client";
 
@@ -8,18 +8,15 @@ export default class PurgeCommand extends BaseCommand {
   }
 
   async run(client: DiscordClient, message: Message, args: Array<string>) {
-    const deleteCount = parseInt(args[0], 10);
-
-    if (!deleteCount || deleteCount < 0 || deleteCount > 100) {
-      message.reply("syntax: purge (2 < int < 100)");
+    if (message.member.roles.cache.has("748988177682792496") === true) {
+      const deleteCount = parseInt(args[0], 10);
+      if (!deleteCount || deleteCount < 0 || deleteCount > 100) {
+        message.reply("syntax: purge (2 < int < 100)");
+      }
+      await message.channel.send("Deleting " + deleteCount + " messages...");
+      (message.channel as TextChannel)
+        .bulkDelete(deleteCount + 2, true)
+        .catch((err) => console.log(err));
     }
-
-    const fetched = await message.channel.messages.fetch({
-      limit: deleteCount + 1,
-    });
-
-    await fetched.forEach((msg) => {
-      msg.delete().catch((error) => message.reply(`Error: ${error}`));
-    });
   }
 }

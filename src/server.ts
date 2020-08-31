@@ -2,7 +2,7 @@ import express = require("express");
 const server = express();
 
 server.all("/", (req, res) => {
-  res.send("Your bot is alive!");
+  res.send("Bot is alive");
 });
 
 export async function keepAlive() {
