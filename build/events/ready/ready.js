@@ -15,11 +15,18 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const BaseEvent_1 = __importDefault(require("../../utils/structures/BaseEvent"));
 class ReadyEvent extends BaseEvent_1.default {
     constructor() {
-        super('ready');
+        super("ready");
     }
     run(client) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log('Bot has logged in.');
+            yield client.user.setStatus("online");
+            yield client.user.setPresence({
+                activity: {
+                    name: "kids screaming",
+                    type: "LISTENING",
+                },
+            });
+            console.log("Bot has logged in.");
         });
     }
 }
