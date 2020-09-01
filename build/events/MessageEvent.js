@@ -19,7 +19,14 @@ class MessageEvent extends BaseEvent_1.default {
     }
     run(client, message) {
         return __awaiter(this, void 0, void 0, function* () {
-            let banwords = ["follow", "nigger", "nigga", "subscribe"];
+            let banwords = [
+                "follow",
+                "nigger",
+                "nigga",
+                "subscribe",
+                "henrik natt och dag är pedofil",
+                "våldtäkt",
+            ];
             if (banwords.some((word) => message.content.toLowerCase().includes(word))) {
                 yield message.react("❌");
                 return;

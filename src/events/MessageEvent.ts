@@ -16,7 +16,14 @@ export default class MessageEvent extends BaseEvent {
   }
 
   async run(client: DiscordClient, message: Message) {
-    let banwords = ["follow", "nigger", "nigga", "subscribe"];
+    let banwords = [
+      "follow",
+      "nigger",
+      "nigga",
+      "subscribe",
+      "henrik natt och dag är pedofil",
+      "våldtäkt",
+    ];
     if (banwords.some((word) => message.content.toLowerCase().includes(word))) {
       await message.react("❌");
       return;
