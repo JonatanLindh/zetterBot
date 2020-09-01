@@ -28,6 +28,9 @@ export default class MessageEvent extends BaseEvent {
             split: true,
           })
           .catch((err) => console.log(err));
+        await message.react("✅");
+      } else {
+        await message.react("❌");
       }
     }
   }

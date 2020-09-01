@@ -29,6 +29,10 @@ class MessageEvent extends BaseEvent_1.default {
                         split: true,
                     })
                         .catch((err) => console.log(err));
+                    yield message.react("✅");
+                }
+                else {
+                    yield message.react("❌");
                 }
             }
         });
