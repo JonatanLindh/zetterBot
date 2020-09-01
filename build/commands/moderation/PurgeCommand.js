@@ -21,8 +21,9 @@ class PurgeCommand extends BaseCommand_1.default {
         return __awaiter(this, void 0, void 0, function* () {
             if (message.member.roles.cache.has("748988177682792496") === true) {
                 const deleteCount = parseInt(args[0], 10);
-                if (!deleteCount || deleteCount < 0 || deleteCount > 100) {
+                if (!deleteCount || deleteCount < 0 || deleteCount > 152) {
                     message.reply("syntax: purge (2 < int < 100)");
+                    return;
                 }
                 yield message.channel.send("Deleting " + deleteCount + " messages...");
                 message.channel
