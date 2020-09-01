@@ -20,20 +20,16 @@ class MessageEvent extends BaseEvent_1.default {
     run(client, message) {
         return __awaiter(this, void 0, void 0, function* () {
             if (message.channel.type == "dm") {
-                if (!message.mentions.everyone) {
-                    let guild = yield client.guilds.fetch("748988071973879921");
-                    let channel = yield client.channels.fetch("749658927527886938");
-                    yield channel
-                        .send(message.content, {
-                        files: message.attachments.array(),
-                        split: true,
-                    })
-                        .catch((err) => console.log(err));
-                    yield message.react("✅");
-                }
-                else {
-                    yield message.react("❌");
-                }
+                let guild = yield client.guilds.fetch("748988071973879921");
+                let channel = yield client.channels.fetch("749658927527886938");
+                yield channel
+                    .send(message.content, {
+                    files: message.attachments.array(),
+                    split: true,
+                    disableMentions: "all",
+                })
+                    .catch((err) => console.log(err));
+                yield message.react("✅");
             }
         });
     }
