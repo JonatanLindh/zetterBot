@@ -6,8 +6,14 @@ class BaseCommand {
         this.category = category;
         this.aliases = aliases;
     }
-    getName() { return this.name; }
-    getCategory() { return this.category; }
-    getAliases() { return this.aliases; }
+    getName() {
+        return this.name;
+    }
+    getCategory() {
+        return this.category;
+    }
+    getAliases() {
+        return this.aliases;
+    }
 }
 exports.default = BaseCommand;

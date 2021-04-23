@@ -9,24 +9,52 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-function archiver(client, message) {
+exports.fromArchive = exports.toArchive = void 0;
+function toArchive(client, message) {
     return __awaiter(this, void 0, void 0, function* () {
         let id;
         if (message.channel.id != "835153318866714674") {
             let guild = yield client.guilds.fetch("671283498723835914");
             let channel = yield client.channels.fetch("835153318866714674");
+            let info = {
+                userId: message.author.id,
+                time: message.createdTimestamp,
+            };
             let archivedMessage = yield channel
-                .send(message.content, {
+                .send(JSON.stringify(info) + "\n" + message.content, {
                 files: message.attachments.array(),
-                split: true,
+                split: false,
                 disableMentions: "all",
             })
                 .then((sent) => {
-                id = sent[0].id;
+                id = sent.id;
             })
-                .catch((err) => console.log(err));
+                .catch((err) => {
+                console.log(err);
+            });
             return id;
         }
     });
 }
-exports.default = archiver;
+exports.toArchive = toArchive;
+function fromArchive(client, reqMessage, code) {
+    return __awaiter(this, void 0, void 0, function* () {
+        let guild = yield client.guilds.fetch("671283498723835914");
+        let channel = yield client.channels.fetch("835153318866714674");
+        let message = yield channel.messages.fetch(code);
+        let info = JSON.parse(message.content.slice(0, 52));
+        let content = message.content.slice(52);
+        let archivedMessage = yield reqMessage.channel
+            .send(content, {
+            files: message.attachments.array(),
+            split: false,
+            disableMentions: "all",
+        })
+            .then()
+            .catch((err) => __awaiter(this, void 0, void 0, function* () {
+            console.log(err);
+            yield reqMessage.channel.send("Unable to retrieve archived message");
+        }));
+    });
+}
+exports.fromArchive = fromArchive;

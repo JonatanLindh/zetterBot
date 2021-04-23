@@ -7,7 +7,7 @@ import {
   MessageAttachment,
   MessageMentions,
 } from "discord.js";
-import archiver from "../archiver";
+import { toArchive } from "../archiver";
 import BaseEvent from "../utils/structures/BaseEvent";
 import DiscordClient from "../client/client";
 
@@ -17,6 +17,8 @@ export default class MessageEvent extends BaseEvent {
   }
 
   async run(client: DiscordClient, message: Message) {
-    await archiver(client, message);
+    if (message.author.id != "835150837629190224") {
+      await toArchive(client, message);
+    }
   }
 }
