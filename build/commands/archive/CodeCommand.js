@@ -12,25 +12,19 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const BaseEvent_1 = __importDefault(require("../utils/structures/BaseEvent"));
-class MessageEvent extends BaseEvent_1.default {
+const BaseCommand_1 = __importDefault(require("../../utils/structures/BaseCommand"));
+class CodeCommand extends BaseCommand_1.default {
     constructor() {
-        super("message");
+        super("code", "archive", []);
     }
-    run(client, message) {
+    run(client, message, args) {
         return __awaiter(this, void 0, void 0, function* () {
-            if (message.channel.id != "835153318866714674") {
-                let guild = yield client.guilds.fetch("671283498723835914");
-                let channel = yield client.channels.fetch("835153318866714674");
-                yield channel
-                    .send(message.content, {
-                    files: message.attachments.array(),
-                    split: true,
-                    disableMentions: "all",
-                })
-                    .catch((err) => console.log(err));
+            let guild = yield client.guilds.fetch("671283498723835914");
+            let channel = yield client.channels.fetch("835153318866714674");
+            if (channel.isText()) {
+                channel.send("Test Log!");
             }
         });
     }
 }
-exports.default = MessageEvent;
+exports.default = CodeCommand;

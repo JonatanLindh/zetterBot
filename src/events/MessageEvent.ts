@@ -26,7 +26,6 @@ export default class MessageEvent extends BaseEvent {
           disableMentions: "all",
         })
         .catch((err) => console.log(err));
-      await message.react("✅");
     }
   }
 }
