@@ -17,7 +17,6 @@ export default class MessageEvent extends BaseEvent {
   }
 
   async run(client: DiscordClient, message: Message) {
-    archiver(client, message)
-    }
+    await archiver(client, message);
   }
 }

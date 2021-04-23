@@ -8,20 +8,25 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const archiver_1 = __importDefault(require("../archiver"));
-const BaseEvent_1 = __importDefault(require("../utils/structures/BaseEvent"));
-class MessageEvent extends BaseEvent_1.default {
-    constructor() {
-        super("message");
-    }
-    run(client, message) {
-        return __awaiter(this, void 0, void 0, function* () {
-            yield archiver_1.default(client, message);
-        });
-    }
+function archiver(client, message) {
+    return __awaiter(this, void 0, void 0, function* () {
+        let id;
+        if (message.channel.id != "835153318866714674") {
+            let guild = yield client.guilds.fetch("671283498723835914");
+            let channel = yield client.channels.fetch("835153318866714674");
+            let archivedMessage = yield channel
+                .send(message.content, {
+                files: message.attachments.array(),
+                split: true,
+                disableMentions: "all",
+            })
+                .then((sent) => {
+                id = sent[0].id;
+            })
+                .catch((err) => console.log(err));
+            return id;
+        }
+    });
 }
-exports.default = MessageEvent;
+exports.default = archiver;
