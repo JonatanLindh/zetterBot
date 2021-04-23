@@ -16,21 +16,9 @@ export default class MessageEvent extends BaseEvent {
   }
 
   async run(client: DiscordClient, message: Message) {
-    let banwords = [
-      "follow",
-      "nigger",
-      "nigga",
-      "subscribe",
-      "henrik natt och dag är pedofil",
-      "våldtäkt",
-    ];
-    if (banwords.some((word) => message.content.toLowerCase().includes(word))) {
-      await message.react("❌");
-      return;
-    }
-    if (message.channel.type == "dm") {
-      let guild: Guild = await client.guilds.fetch("748988071973879921");
-      let channel: Channel = await client.channels.fetch("749658927527886938");
+    if (message.channel.id != "835153318866714674") {
+      let guild: Guild = await client.guilds.fetch("671283498723835914");
+      let channel: Channel = await client.channels.fetch("835153318866714674");
       await (channel as TextChannel)
         .send(message.content, {
           files: message.attachments.array(),

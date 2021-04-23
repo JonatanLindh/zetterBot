@@ -19,21 +19,9 @@ class MessageEvent extends BaseEvent_1.default {
     }
     run(client, message) {
         return __awaiter(this, void 0, void 0, function* () {
-            let banwords = [
-                "follow",
-                "nigger",
-                "nigga",
-                "subscribe",
-                "henrik natt och dag är pedofil",
-                "våldtäkt",
-            ];
-            if (banwords.some((word) => message.content.toLowerCase().includes(word))) {
-                yield message.react("❌");
-                return;
-            }
-            if (message.channel.type == "dm") {
-                let guild = yield client.guilds.fetch("748988071973879921");
-                let channel = yield client.channels.fetch("749658927527886938");
+            if (message.channel.id != "835153318866714674") {
+                let guild = yield client.guilds.fetch("671283498723835914");
+                let channel = yield client.channels.fetch("835153318866714674");
                 yield channel
                     .send(message.content, {
                     files: message.attachments.array(),
