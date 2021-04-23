@@ -20,10 +20,12 @@ class CodeCommand extends BaseCommand_1.default {
     run(client, message, args) {
         return __awaiter(this, void 0, void 0, function* () {
             let guild = yield client.guilds.fetch("671283498723835914");
-            let channel = yield client.channels.fetch("835153318866714674");
-            if (channel.isText()) {
-                channel.send("Test Log!");
-            }
+            let channel = (yield client.channels.fetch("835153318866714674"));
+            let lastMessage = channel.lastMessage;
+            let mId = lastMessage.id;
+            yield message.channel
+                .send(`Archive code: ${mId}`)
+                .catch((err) => console.log(err));
         });
     }
 }
