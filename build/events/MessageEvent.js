@@ -20,7 +20,7 @@ class MessageEvent extends BaseEvent_1.default {
     }
     run(client, message) {
         return __awaiter(this, void 0, void 0, function* () {
-            if (message.author.id != "835150837629190224") {
+            if (!message.author.bot) {
                 yield archiver_1.toArchive(client, message);
             }
         });

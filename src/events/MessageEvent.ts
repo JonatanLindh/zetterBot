@@ -17,7 +17,7 @@ export default class MessageEvent extends BaseEvent {
   }
 
   async run(client: DiscordClient, message: Message) {
-    if (message.author.id != "835150837629190224") {
+    if (!message.author.bot) {
       await toArchive(client, message);
     }
   }
