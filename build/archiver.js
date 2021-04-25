@@ -41,7 +41,15 @@ function fromArchive(client, reqMessage, code) {
     return __awaiter(this, void 0, void 0, function* () {
         let guild = yield client.guilds.fetch("671283498723835914");
         let channel = yield client.channels.fetch("835153318866714674");
-        let message = yield channel.messages.fetch(code);
+        let message = yield channel.messages
+            .fetch(code)
+            .catch((err) => __awaiter(this, void 0, void 0, function* () {
+            yield reqMessage.channel.send("Unable to retrieve archived message");
+            return reqMessage;
+        }));
+        if (message === reqMessage) {
+            return;
+        }
         let info = JSON.parse(message.content.slice(0, 52));
         let content = message.content.slice(52);
         let archivedMessage = yield reqMessage.channel

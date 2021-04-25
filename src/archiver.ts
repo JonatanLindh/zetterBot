@@ -45,8 +45,15 @@ export async function fromArchive(
   let guild: Guild = await client.guilds.fetch("671283498723835914");
   let channel: Channel = await client.channels.fetch("835153318866714674");
 
-  let message: Message = await (channel as TextChannel).messages.fetch(code);
-
+  let message: Message = await (channel as TextChannel).messages
+    .fetch(code)
+    .catch(async (err) => {
+      await reqMessage.channel.send("Unable to retrieve archived message");
+      return reqMessage;
+    });
+  if (message === reqMessage) {
+    return;
+  }
   let info = JSON.parse(message.content.slice(0, 52));
   let content: string = message.content.slice(52);
 
