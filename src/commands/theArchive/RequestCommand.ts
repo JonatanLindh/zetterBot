@@ -1,7 +1,7 @@
 import { Channel, Guild, Message, MessageEmbed, TextChannel } from "discord.js";
 import BaseCommand from "../../utils/structures/BaseCommand";
 import DiscordClient from "../../client/client";
-import { fromArchive } from "../../archiver";
+import { fromArchive } from "../../core/archiver";
 
 export default class RequestCommand extends BaseCommand {
   constructor() {

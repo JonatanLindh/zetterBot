@@ -9,7 +9,7 @@ import {
   MessageEmbed,
 } from "discord.js";
 import { type } from "node:os";
-import DiscordClient from "./client/client";
+import DiscordClient from "../client/client";
 import { MessageBuilder, Webhook } from "discord-webhook-node";
 import { request } from "node:http";
 import FormData from "form-data";

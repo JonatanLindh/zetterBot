@@ -7,7 +7,7 @@ import {
   MessageAttachment,
   MessageMentions,
 } from "discord.js";
-import { toArchive } from "../archiver";
+import { toArchive } from "../core/archiver";
 import BaseEvent from "../utils/structures/BaseEvent";
 import DiscordClient from "../client/client";
 

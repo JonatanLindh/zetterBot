@@ -14,7 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 const BaseCommand_1 = __importDefault(require("../../utils/structures/BaseCommand"));
-const archiver_1 = require("../../archiver");
+const archiver_1 = require("../../core/archiver");
 class ArchiveCommand extends BaseCommand_1.default {
     constructor() {
         super("archive", "theArchive", []);

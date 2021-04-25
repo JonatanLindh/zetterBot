@@ -12,18 +12,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const archiver_1 = require("../core/archiver");
-const BaseEvent_1 = __importDefault(require("../utils/structures/BaseEvent"));
-class MessageEvent extends BaseEvent_1.default {
+const BaseCommand_1 = __importDefault(require("../../utils/structures/BaseCommand"));
+class ImposterCommand extends BaseCommand_1.default {
     constructor() {
-        super("message");
+        super('imposter', 'fun', []);
     }
-    run(client, message) {
+    run(client, message, args) {
         return __awaiter(this, void 0, void 0, function* () {
-            if (!message.author.bot) {
-                yield archiver_1.toArchive(client, message);
-            }
+            message.channel.send('imposter command works');
         });
     }
 }
-exports.default = MessageEvent;
+exports.default = ImposterCommand;

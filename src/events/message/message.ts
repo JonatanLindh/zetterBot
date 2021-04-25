@@ -1,7 +1,7 @@
 import BaseEvent from "../../utils/structures/BaseEvent";
 import { Message } from "discord.js";
 import DiscordClient from "../../client/client";
-import aliases from "../../commandAliases";
+import aliases from "../../core/commandAliases";
 
 export default class MessageEvent extends BaseEvent {
   constructor() {
