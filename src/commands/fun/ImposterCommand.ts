@@ -2,6 +2,8 @@ import { Message, User, WebhookClient, WebhookMixin } from "discord.js";
 import BaseCommand from "../../utils/structures/BaseCommand";
 import DiscordClient from "../../client/client";
 import FormData from "form-data";
+import { config } from "dotenv";
+config();
 
 let setChannel = (channelId: string) => {
   new Promise((resolve, reject) => {
@@ -18,12 +20,9 @@ let setChannel = (channelId: string) => {
 
 let editHook = new WebhookClient(
   "835844126910054400",
-  "ODM1MTUwODM3NjI5MTkwMjI0.YILQ1A.VuYR8rRBxqrQ3uUzcOqMPN5UjH4"
+  process.env.DISCORD_BOT_TOKEN
 );
-let hook = new WebhookClient(
-  "835844126910054400",
-  "BG5_uSYViR4y8Ga9EnCjSYbqsC06Gsu77m0si9NnUoa1EXoFZCVPSkhtWIkwIMfYw2Qh"
-);
+let hook = new WebhookClient("835844126910054400", process.env.WEBHOOK_TOKEN);
 
 export default class ImposterCommand extends BaseCommand {
   constructor() {
@@ -31,8 +30,6 @@ export default class ImposterCommand extends BaseCommand {
   }
 
   async run(client: DiscordClient, message: Message, args: Array<string>) {
-    await message.delete();
-
     const guild = await client.guilds.fetch("671283498723835914");
     const victimMember = await guild.members.fetch(
       message.mentions.users.first().id
@@ -48,5 +45,6 @@ export default class ImposterCommand extends BaseCommand {
       avatarURL: victim.avatarURL(),
       username: victimMember.nickname,
     });
+    await message.delete();
   }
 }

@@ -17,7 +17,11 @@ export default class MessageEvent extends BaseEvent {
   }
 
   async run(client: DiscordClient, message: Message) {
-    if (!message.author.bot && message.channel.id != "671305829957369856") {
+    if (
+      !message.author.bot &&
+      message.channel.id != "671305829957369856" &&
+      !message.content.includes("?imposter")
+    ) {
       await toArchive(client, message);
     }
   }
