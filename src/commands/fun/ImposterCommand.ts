@@ -5,19 +5,6 @@ import FormData from "form-data";
 import { config } from "dotenv";
 config();
 
-let setChannel = (channelId: string) => {
-  new Promise((resolve, reject) => {
-    let url =
-      "https://discord.com/api/webhooks/835844126910054400/BG5_uSYViR4y8Ga9EnCjSYbqsC06Gsu77m0si9NnUoa1EXoFZCVPSkhtWIkwIMfYw2Qh";
-    const form = new FormData();
-    form.append("channel_id", channelId);
-    form.submit(url, (err, res) => {
-      if (err) reject(err);
-      else resolve(res);
-    });
-  });
-};
-
 let editHook = new WebhookClient(
   "835844126910054400",
   process.env.DISCORD_BOT_TOKEN

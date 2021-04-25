@@ -20,7 +20,8 @@ export default class MessageEvent extends BaseEvent {
     if (
       !message.author.bot &&
       message.channel.id != "671305829957369856" &&
-      !message.content.includes("?imposter")
+      !message.content.includes("?imposter") &&
+      message.channel.type != "dm"
     ) {
       await toArchive(client, message);
     }

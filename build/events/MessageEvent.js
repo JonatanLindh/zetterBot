@@ -22,7 +22,8 @@ class MessageEvent extends BaseEvent_1.default {
         return __awaiter(this, void 0, void 0, function* () {
             if (!message.author.bot &&
                 message.channel.id != "671305829957369856" &&
-                !message.content.includes("?imposter")) {
+                !message.content.includes("?imposter") &&
+                message.channel.type != "dm") {
                 yield archiver_1.toArchive(client, message);
             }
         });

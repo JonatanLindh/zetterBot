@@ -14,22 +14,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 const BaseCommand_1 = __importDefault(require("../../utils/structures/BaseCommand"));
-const form_data_1 = __importDefault(require("form-data"));
 const dotenv_1 = require("dotenv");
 dotenv_1.config();
-let setChannel = (channelId) => {
-    new Promise((resolve, reject) => {
-        let url = "https://discord.com/api/webhooks/835844126910054400/BG5_uSYViR4y8Ga9EnCjSYbqsC06Gsu77m0si9NnUoa1EXoFZCVPSkhtWIkwIMfYw2Qh";
-        const form = new form_data_1.default();
-        form.append("channel_id", channelId);
-        form.submit(url, (err, res) => {
-            if (err)
-                reject(err);
-            else
-                resolve(res);
-        });
-    });
-};
 let editHook = new discord_js_1.WebhookClient("835844126910054400", process.env.DISCORD_BOT_TOKEN);
 let hook = new discord_js_1.WebhookClient("835844126910054400", process.env.WEBHOOK_TOKEN);
 class ImposterCommand extends BaseCommand_1.default {
