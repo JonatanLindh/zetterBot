@@ -13,6 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const BaseEvent_1 = __importDefault(require("../../utils/structures/BaseEvent"));
+const commandAliases_1 = __importDefault(require("../../commandAliases"));
 class MessageEvent extends BaseEvent_1.default {
     constructor() {
         super("message");
@@ -29,6 +30,13 @@ class MessageEvent extends BaseEvent_1.default {
                 const command = client.commands.get(cmdName);
                 if (command) {
                     command.run(client, message, cmdArgs);
+                }
+                else {
+                    // Alias handler
+                    if (cmdName in commandAliases_1.default) {
+                        const command = client.commands.get(commandAliases_1.default[cmdName]);
+                        command.run(client, message, cmdArgs);
+                    }
                 }
             }
         });

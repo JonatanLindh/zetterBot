@@ -1,6 +1,7 @@
 import BaseEvent from "../../utils/structures/BaseEvent";
 import { Message } from "discord.js";
 import DiscordClient from "../../client/client";
+import aliases from "../../commandAliases";
 
 export default class MessageEvent extends BaseEvent {
   constructor() {
@@ -15,8 +16,15 @@ export default class MessageEvent extends BaseEvent {
         .trim()
         .split(/\s+/);
       const command = client.commands.get(cmdName);
+
       if (command) {
         command.run(client, message, cmdArgs);
+      } else {
+        // Alias handler
+        if (cmdName in aliases) {
+          const command = client.commands.get(aliases[cmdName]);
+          command.run(client, message, cmdArgs);
+        }
       }
     }
   }
