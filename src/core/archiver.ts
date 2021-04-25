@@ -1,36 +1,5 @@
-import {
-  Message,
-  Guild,
-  Channel,
-  TextChannel,
-  MessageAttachment,
-  MessageMentions,
-  User,
-  MessageEmbed,
-} from "discord.js";
-import { type } from "node:os";
+import { Message, Guild, Channel, TextChannel, MessageEmbed } from "discord.js";
 import DiscordClient from "../client/client";
-import { MessageBuilder, Webhook } from "discord-webhook-node";
-import { request } from "node:http";
-import FormData from "form-data";
-import { rejects } from "node:assert";
-
-let setChannel = (channelId: string) => {
-  new Promise((resolve, reject) => {
-    let url =
-      "https://discord.com/api/webhooks/835844126910054400/BG5_uSYViR4y8Ga9EnCjSYbqsC06Gsu77m0si9NnUoa1EXoFZCVPSkhtWIkwIMfYw2Qh";
-    const form = new FormData();
-    form.append("channel_id", channelId);
-    form.submit(url, (err, res) => {
-      if (err) reject(err);
-      else resolve(res);
-    });
-  });
-};
-
-const hook: Webhook = new Webhook(
-  "https://discord.com/api/webhooks/835844126910054400/BG5_uSYViR4y8Ga9EnCjSYbqsC06Gsu77m0si9NnUoa1EXoFZCVPSkhtWIkwIMfYw2Qh"
-);
 
 export async function toArchive(client: DiscordClient, message: Message) {
   let id: string;
