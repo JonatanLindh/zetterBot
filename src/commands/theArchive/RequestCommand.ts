@@ -9,11 +9,15 @@ export default class RequestCommand extends BaseCommand {
   }
 
   async run(client: DiscordClient, message: Message, args: Array<string>) {
-    let code: string = args[0];
-    if (code.length == "111111111111111111".length) {
-      await fromArchive(client, message, code);
-    } else {
-      await message.reply("Invalid archive code");
+    try {
+      let code: string = args[0];
+      if (code.length == "111111111111111111".length) {
+        await fromArchive(client, message, code);
+      } else {
+        await message.reply("Invalid archive code");
+      }
+    } catch (e) {
+      console.error(e);
     }
   }
 }

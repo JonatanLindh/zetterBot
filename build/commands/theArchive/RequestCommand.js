@@ -20,12 +20,17 @@ class RequestCommand extends BaseCommand_1.default {
     }
     run(client, message, args) {
         return __awaiter(this, void 0, void 0, function* () {
-            let code = args[0];
-            if (code.length == "111111111111111111".length) {
-                yield (0, archiver_1.fromArchive)(client, message, code);
+            try {
+                let code = args[0];
+                if (code.length == "111111111111111111".length) {
+                    yield (0, archiver_1.fromArchive)(client, message, code);
+                }
+                else {
+                    yield message.reply("Invalid archive code");
+                }
             }
-            else {
-                yield message.reply("Invalid archive code");
+            catch (e) {
+                console.error(e);
             }
         });
     }

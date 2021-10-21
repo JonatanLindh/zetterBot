@@ -43,9 +43,13 @@ export default class MoveCommand extends BaseCommand {
         throw new Error(":(");
       }
     } catch (e) {
-      await message.reply(
-        "Error parsing arguments\nFirst Argument: Positive integer <=20\nSecond Argument: Channel mention"
-      );
+      const embed: MessageEmbed = new MessageEmbed()
+        .setTitle("Error parsing arguments")
+        .setDescription(
+          `**First Argument:** Positive integer <=20\n**Second Argument:** Channel mention`
+        );
+
+      await message.reply({ embed });
       return;
     }
 

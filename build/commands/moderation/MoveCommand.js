@@ -39,7 +39,10 @@ class MoveCommand extends BaseCommand_1.default {
                 }
             }
             catch (e) {
-                yield message.reply("Error parsing arguments\nFirst Argument: Positive integer <=20\nSecond Argument: Channel mention");
+                const embed = new discord_js_1.MessageEmbed()
+                    .setTitle("Error parsing arguments")
+                    .setDescription(`**First Argument:** Positive integer <=20\n**Second Argument:** Channel mention`);
+                yield message.reply({ embed });
                 return;
             }
             const embed = new discord_js_1.MessageEmbed().setDescription(`Moved **${msgAmnt}** messages to <#${targetChannel.id}>`);
