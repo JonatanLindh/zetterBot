@@ -1,7 +1,6 @@
 import { Message, User, WebhookClient, WebhookMixin } from "discord.js";
 import BaseCommand from "../../utils/structures/BaseCommand";
 import DiscordClient from "../../client/client";
-import FormData from "form-data";
 import { config } from "dotenv";
 config();
 

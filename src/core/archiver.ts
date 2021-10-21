@@ -1,11 +1,17 @@
 import { Message, Guild, Channel, TextChannel, MessageEmbed } from "discord.js";
 import DiscordClient from "../client/client";
 
-export async function toArchive(client: DiscordClient, message: Message) {
+export async function toArchive(
+  client: DiscordClient,
+  message: Message,
+  channelId?: string
+) {
   let id: string;
   if (message.channel.id != "835153318866714674") {
     let guild: Guild = await client.guilds.fetch("671283498723835914");
-    let channel: Channel = await client.channels.fetch("835153318866714674");
+    let channel: Channel = await client.channels.fetch(
+      channelId ?? "835153318866714674"
+    );
 
     const info = {
       userId: message.author.id,

@@ -1,6 +1,7 @@
 const aliases: { [command: string]: string[] } = {
   request: ["req", "r"],
   archive: ["a"],
+  move: ["m", "mv"],
 };
 
 const remappedAliases: { [alias: string]: string } = {};
