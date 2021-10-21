@@ -37,7 +37,7 @@ class ArchiveCommand extends BaseCommand_1.default {
             if (failed) {
                 return;
             }
-            let aId = yield archiver_1.toArchive(client, fetchedMessage);
+            let aId = yield (0, archiver_1.toArchive)(client, fetchedMessage);
             let guild = yield client.guilds.fetch("671283498723835914");
             let channel = (yield client.channels.fetch("835153318866714674"));
             let embed = new discord_js_1.MessageEmbed()

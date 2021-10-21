@@ -18,25 +18,51 @@ const dotenv_1 = require("dotenv");
 (0, dotenv_1.config)();
 let editHook = new discord_js_1.WebhookClient("835844126910054400", process.env.DISCORD_BOT_TOKEN);
 let hook = new discord_js_1.WebhookClient("835844126910054400", process.env.WEBHOOK_TOKEN);
-class ImposterCommand extends BaseCommand_1.default {
+class MoveCommand extends BaseCommand_1.default {
     constructor() {
-        super("imposter", "fun", []);
+        super("move", "moderation", []);
     }
     run(client, message, args) {
         return __awaiter(this, void 0, void 0, function* () {
             const guild = yield client.guilds.fetch("671283498723835914");
-            const victimMember = yield guild.members.fetch(message.mentions.users.first().id);
-            const victim = message.mentions.users.first();
+            const currentChannel = message.channel;
+            let msgAmnt;
+            let targetChannel;
+            try {
+                msgAmnt = parseInt(args[0]);
+                targetChannel = yield client.channels.fetch(args[1].substr(2, args[1].length - 3));
+                if (1 > msgAmnt || msgAmnt > 20) {
+                    throw new Error(":(");
+                }
+            }
+            catch (e) {
+                yield message.reply("First Argument: positive integer <=20\nSecond Argument: Channel mention");
+                return;
+            }
+            yield currentChannel.messages
+                .fetch({ limit: msgAmnt })
+                .then((messages) => {
+                messages
+                    .array()
+                    .forEach((m) => this.moveMessage(client, guild, m, currentChannel, targetChannel));
+            })
+                .catch((e) => message.reply(e));
+        });
+    }
+    moveMessage(client, guild, message, currentChannel, targetChannel) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const messageAuthorMember = yield guild.members.fetch(message.author.id);
+            const messageAuthor = message.mentions.users.first();
             const content = message.content.slice(message.content.indexOf(">") + 1);
             yield editHook.edit({
-                channel: message.channel.id,
+                channel: targetChannel.id,
             });
             yield hook.send(content, {
-                avatarURL: victim.avatarURL(),
-                username: victimMember.nickname,
+                avatarURL: messageAuthor.avatarURL(),
+                username: messageAuthorMember.nickname,
             });
             yield message.delete();
         });
     }
 }
-exports.default = ImposterCommand;
+exports.default = MoveCommand;

@@ -24,7 +24,7 @@ class MessageEvent extends BaseEvent_1.default {
                 message.channel.id != "671305829957369856" &&
                 !message.content.includes("?imposter") &&
                 message.channel.type != "dm") {
-                yield archiver_1.toArchive(client, message);
+                yield (0, archiver_1.toArchive)(client, message);
             }
         });
     }

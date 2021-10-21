@@ -13,17 +13,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const dotenv_1 = require("dotenv");
-dotenv_1.config();
+(0, dotenv_1.config)();
 const registry_1 = require("./utils/registry");
 const client_1 = __importDefault(require("./client/client"));
 const client = new client_1.default({});
 const server_1 = require("./server");
 (() => __awaiter(void 0, void 0, void 0, function* () {
     client.prefix = process.env.DISCORD_BOT_PREFIX || client.prefix;
-    yield registry_1.registerCommands(client, "../commands");
-    yield registry_1.registerEvents(client, "../events");
+    yield (0, registry_1.registerCommands)(client, "../commands");
+    yield (0, registry_1.registerEvents)(client, "../events");
     if (process.env.IN_CLOUD == "true") {
-        server_1.keepAlive().catch((err) => console.log(err));
+        (0, server_1.keepAlive)().catch((err) => console.log(err));
     }
     yield client.login(process.env.DISCORD_BOT_TOKEN);
 }))();

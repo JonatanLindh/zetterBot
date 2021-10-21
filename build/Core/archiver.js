@@ -11,12 +11,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.fromArchive = exports.toArchive = void 0;
 const discord_js_1 = require("discord.js");
-function toArchive(client, message) {
+function toArchive(client, message, channelId) {
     return __awaiter(this, void 0, void 0, function* () {
         let id;
         if (message.channel.id != "835153318866714674") {
             let guild = yield client.guilds.fetch("671283498723835914");
-            let channel = yield client.channels.fetch("835153318866714674");
+            let channel = yield client.channels.fetch(channelId !== null && channelId !== void 0 ? channelId : "835153318866714674");
             const info = {
                 userId: message.author.id,
                 channelId: message.channel.id,
