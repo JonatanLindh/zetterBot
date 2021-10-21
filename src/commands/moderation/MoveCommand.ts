@@ -44,7 +44,7 @@ export default class MoveCommand extends BaseCommand {
       }
     } catch (e) {
       await message.reply(
-        "First Argument: positive integer <=20\nSecond Argument: Channel mention"
+        "Error parsing arguments\nFirst Argument: Positive integer <=20\nSecond Argument: Channel mention"
       );
       return;
     }
