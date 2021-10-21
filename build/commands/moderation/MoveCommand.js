@@ -24,6 +24,9 @@ class MoveCommand extends BaseCommand_1.default {
     }
     run(client, message, args) {
         return __awaiter(this, void 0, void 0, function* () {
+            yield message.delete();
+            if (message.author.id != "266524004121182209")
+                return;
             const guild = yield client.guilds.fetch("671283498723835914");
             const currentChannel = message.channel;
             let msgAmnt;
@@ -39,27 +42,31 @@ class MoveCommand extends BaseCommand_1.default {
                 yield message.reply("First Argument: positive integer <=20\nSecond Argument: Channel mention");
                 return;
             }
+            const embed = new discord_js_1.MessageEmbed().setDescription(`Moved **${msgAmnt}** messages to <#${targetChannel.id}>`);
             yield currentChannel.messages
                 .fetch({ limit: msgAmnt })
-                .then((messages) => {
-                messages
+                .then((messages) => __awaiter(this, void 0, void 0, function* () {
+                yield messages
                     .array()
-                    .forEach((m) => this.moveMessage(client, guild, m, currentChannel, targetChannel));
-            })
+                    .reverse()
+                    .forEach((m) => this.moveMessage(guild, m, targetChannel).catch(console.error));
+                yield message.reply({ embed });
+            }))
                 .catch((e) => message.reply(e));
         });
     }
-    moveMessage(client, guild, message, currentChannel, targetChannel) {
+    moveMessage(guild, message, targetChannel) {
+        var _a;
         return __awaiter(this, void 0, void 0, function* () {
             const messageAuthorMember = yield guild.members.fetch(message.author.id);
-            const messageAuthor = message.mentions.users.first();
-            const content = message.content.slice(message.content.indexOf(">") + 1);
+            const messageAuthor = message.author;
+            const content = message.content;
             yield editHook.edit({
                 channel: targetChannel.id,
             });
             yield hook.send(content, {
                 avatarURL: messageAuthor.avatarURL(),
-                username: messageAuthorMember.nickname,
+                username: (_a = messageAuthorMember.nickname) !== null && _a !== void 0 ? _a : messageAuthor.username,
             });
             yield message.delete();
         });

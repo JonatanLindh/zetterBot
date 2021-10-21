@@ -2,6 +2,7 @@ import {
   Channel,
   Guild,
   Message,
+  MessageEmbed,
   User,
   WebhookClient,
   WebhookMixin,
@@ -23,6 +24,10 @@ export default class MoveCommand extends BaseCommand {
   }
 
   async run(client: DiscordClient, message: Message, args: Array<string>) {
+    await message.delete();
+
+    if (message.author.id != "266524004121182209") return;
+
     const guild = await client.guilds.fetch("671283498723835914");
     const currentChannel = message.channel;
 
@@ -44,28 +49,28 @@ export default class MoveCommand extends BaseCommand {
       return;
     }
 
+    const embed: MessageEmbed = new MessageEmbed().setDescription(
+      `Moved **${msgAmnt}** messages to <#${targetChannel.id}>`
+    );
+
     await currentChannel.messages
       .fetch({ limit: msgAmnt })
-      .then((messages) => {
-        messages
+      .then(async (messages) => {
+        await messages
           .array()
+          .reverse()
           .forEach((m) =>
-            this.moveMessage(client, guild, m, currentChannel, targetChannel)
+            this.moveMessage(guild, m, targetChannel).catch(console.error)
           );
+        await message.reply({ embed });
       })
       .catch((e) => message.reply(e));
   }
 
-  async moveMessage(
-    client: DiscordClient,
-    guild: Guild,
-    message: Message,
-    currentChannel: Channel,
-    targetChannel: Channel
-  ) {
+  async moveMessage(guild: Guild, message: Message, targetChannel: Channel) {
     const messageAuthorMember = await guild.members.fetch(message.author.id);
-    const messageAuthor = message.mentions.users.first();
-    const content = message.content.slice(message.content.indexOf(">") + 1);
+    const messageAuthor = message.author;
+    const content = message.content;
 
     await editHook.edit({
       channel: targetChannel.id,
@@ -73,8 +78,9 @@ export default class MoveCommand extends BaseCommand {
 
     await hook.send(content, {
       avatarURL: messageAuthor.avatarURL(),
-      username: messageAuthorMember.nickname,
+      username: messageAuthorMember.nickname ?? messageAuthor.username,
     });
+
     await message.delete();
   }
 }
